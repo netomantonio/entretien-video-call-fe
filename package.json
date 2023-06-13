@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "dev": "http-server -e .env.local",
+    "production": "http-server -e .env.production"
+  },
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "readme-md-generator": "^1.0.0"
+  }
+}

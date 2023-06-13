@@ -1,0 +1,7 @@
+/node_modules/
+/.env.local
+/.env.production
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/web.iml

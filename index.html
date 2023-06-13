@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ENTRETIEN-RH VIDEO CALL</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script src="app.js"></script>
+    <script src="openvidu-webcomponent-2.27.0.js"></script>
+    <link rel="stylesheet" href="openvidu-webcomponent-2.27.0.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <!-- OpenVidu Web Component -->
+    <openvidu-webcomponent lang="pt" style="height: 100%;"></openvidu-webcomponent>
+
+    <script>
+        // Verifica se a página foi carregada na rota correta e obtém os parâmetros
+            const urlParams = new URLSearchParams(window.location.search);
+            const interviewId = urlParams.get('interviewId')
+            const sessionId = urlParams.get('sessionId');
+            const tokenServerApp = urlParams.get('token');
+
+            // Chama a função joinSession() com os parâmetros obtidos
+            joinSession(sessionId, tokenServerApp, interviewId);
+    </script>
+</body>
+
+</html>
