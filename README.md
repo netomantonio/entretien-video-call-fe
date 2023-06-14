@@ -18,9 +18,9 @@ npm install
 ```
 
 ## Usage
-
-```sh
-use o comando http-server para iniciar a aplicação
+use o comando abaixo para iniciar a aplicação
+```sh 
+ http-server
 ```
 
 ## Author
