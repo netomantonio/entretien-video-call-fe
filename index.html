@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 
 <head>
     <title>ENTRETIEN-RH VIDEO CALL</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 
     <script src="app.js"></script>
     <script src="openvidu-webcomponent-2.27.0.js"></script>
@@ -14,19 +15,22 @@
 </head>
 
 <body>
-    <!-- OpenVidu Web Component -->
-    <openvidu-webcomponent lang="pt" style="height: 100%;"></openvidu-webcomponent>
+<!-- OpenVidu Web Component -->
+<openvidu-webcomponent lang="pt" style="height: 100%;"></openvidu-webcomponent>
 
-    <script>
-        // Verifica se a página foi carregada na rota correta e obtém os parâmetros
-            const urlParams = new URLSearchParams(window.location.search);
-            const interviewId = urlParams.get('interviewId')
-            const sessionId = urlParams.get('sessionId');
-            const tokenServerApp = urlParams.get('token');
+<script>
+    // Verifica se a página foi carregada na rota correta e obtém os parâmetros
+    const urlParams = new URLSearchParams(window.location.search);
+    const interviewId = urlParams.get('interviewId')
+    const sessionId = urlParams.get('sessionId');
+    const tokenServerApp = urlParams.get('token');
+    const APPLICATION_SERVER_URL = urlParams.get('appServerUrl')
+    const APPLICATION_FRONTEND_URL = urlParams.get('appFrontendUrl')
 
-            // Chama a função joinSession() com os parâmetros obtidos
-            joinSession(sessionId, tokenServerApp, interviewId);
-    </script>
+    window.localStorage.setItem("APPLICATION_FRONTEND_URL", APPLICATION_FRONTEND_URL)
+    // Chama a função joinSession() com os parâmetros obtidos
+    joinSession(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL);
+</script>
 </body>
 
 </html>

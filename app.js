@@ -1,5 +1,6 @@
 $(document).ready(async () => {
     const webComponent = document.querySelector('openvidu-webcomponent');
+    const APPLICATION_FRONTEND_URL = window.localStorage.getItem("APPLICATION_FRONTEND_URL")
 
     webComponent.addEventListener('onSessionCreated', (event) => {
         const session = event.detail;
@@ -21,7 +22,7 @@ $(document).ready(async () => {
 
         session.on('sessionDisconnected', (event) => {
             console.warn("sessionDisconnected", event);
-            window.location.replace("http://localhost:3000/interviews")
+            window.location.replace(APPLICATION_FRONTEND_URL + "/interviews")
             window.close()
         });
 
@@ -42,10 +43,15 @@ $(document).ready(async () => {
 
 });
 
-async function joinSession(sessionId, tokenServerApp, interviewId) {
+async function joinSession(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL) {
 
     // Requesting tokens
-    const promiseResults = await Promise.all([getToken(sessionId, tokenServerApp, interviewId), getToken(sessionId, tokenServerApp, interviewId)]);
+    const promiseResults = await Promise.all(
+        [
+            getToken(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL),
+            getToken(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL)
+        ]
+    );
     const tokens = {webcam: promiseResults[0], screen: promiseResults[1]};
 
     //Getting the webcomponent element
@@ -100,20 +106,19 @@ async function joinSession(sessionId, tokenServerApp, interviewId) {
  * Visit https://docs.openvidu.io/en/stable/application-server to learn
  * more about the integration of OpenVidu in your application server.
  */
-const APPLICATION_SERVER_URL = "http://localhost:5000/openvidu/";
 
-function getToken(customSessionId, tokenServerApp, interviewId) {
-    return createSession(customSessionId, tokenServerApp, interviewId).then(sessionId => createToken(sessionId, tokenServerApp));
+function getToken(customSessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL) {
+    return createSession(customSessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL).then(sessionId => createToken(sessionId, tokenServerApp, APPLICATION_SERVER_URL));
 }
 
-function createSession(sessionId, tokenServerApp, interviewId) {
+function createSession(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "POST",
-            url: APPLICATION_SERVER_URL + 'api/sessions/'  + interviewId ,
-            data: JSON.stringify({ customSessionId: sessionId }),
+            url: APPLICATION_SERVER_URL + '/api/sessions/' + interviewId,
+            data: JSON.stringify({customSessionId: sessionId}),
             headers: {
-                "Content-Type":"application/json",
+                "Content-Type": "application/json",
                 "Authorization": "Bearer " + tokenServerApp
             },
             success: response => resolve(response), // The sessionId
@@ -122,16 +127,16 @@ function createSession(sessionId, tokenServerApp, interviewId) {
     });
 }
 
-function createToken(sessionId, tokenServerApp) {
+function createToken(sessionId, tokenServerApp, APPLICATION_SERVER_URL) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: 'POST',
-            url: APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections',
+            url: APPLICATION_SERVER_URL + '/api/sessions/' + sessionId + '/connections',
             data: JSON.stringify({}),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ` + tokenServerApp
-            } ,
+            },
             success: (response) => resolve(response), // The token
             error: (error) => reject(error)
         });
