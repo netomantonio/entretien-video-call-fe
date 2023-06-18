@@ -1,6 +1,8 @@
 $(document).ready(async () => {
     const webComponent = document.querySelector('openvidu-webcomponent');
     const APPLICATION_FRONTEND_URL = window.localStorage.getItem("APPLICATION_FRONTEND_URL")
+    const INTERVIEW_ID = window.localStorage.getItem("INTERVIEW_ID")
+    const userRole = window.localStorage.getItem("userRole")
 
     webComponent.addEventListener('onSessionCreated', (event) => {
         const session = event.detail;
@@ -22,7 +24,9 @@ $(document).ready(async () => {
 
         session.on('sessionDisconnected', (event) => {
             console.warn("sessionDisconnected", event);
-            window.location.replace(APPLICATION_FRONTEND_URL + "/interviews")
+            window.localStorage.clear()
+            if (userRole === 'ROLE_RECRUITER') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/" + INTERVIEW_ID + '/edit')
+            if (userRole === 'ROLE_CANDIDATE') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/")
             window.close()
         });
 

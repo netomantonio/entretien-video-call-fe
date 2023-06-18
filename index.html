@@ -26,8 +26,11 @@
     const tokenServerApp = urlParams.get('token');
     const APPLICATION_SERVER_URL = urlParams.get('appServerUrl')
     const APPLICATION_FRONTEND_URL = urlParams.get('appFrontendUrl')
+    const userRole = urlParams.get('userRole')
 
     window.localStorage.setItem("APPLICATION_FRONTEND_URL", APPLICATION_FRONTEND_URL)
+    window.localStorage.setItem("INTERVIEW_ID", interviewId)
+    window.localStorage.setItem("userRole", userRole)
     // Chama a função joinSession() com os parâmetros obtidos
     joinSession(sessionId, tokenServerApp, interviewId, APPLICATION_SERVER_URL);
 </script>
