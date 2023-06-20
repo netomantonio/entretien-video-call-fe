@@ -22,11 +22,30 @@ $(document).ready(async () => {
             console.log("streamCreated", e);
         });
 
-        session.on('sessionDisconnected', (event) => {
+        session.on('sessionDisconnected', async (event) => {
             console.warn("sessionDisconnected", event);
+            const promiseResults = await Promise.all(
+                [
+                    finishSession()
+                ]
+            )
+            const userType = {name: promiseResults[0]};
             window.localStorage.clear()
-            if (userRole === 'ROLE_RECRUITER') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/" + INTERVIEW_ID + '/edit')
-            if (userRole === 'ROLE_CANDIDATE') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/")
+            window.localStorage.setItem("sessionId", sessionId)
+            if (userRole === 'ROLE_RECRUITER' && userType.name.toString() === 'Recruiter') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/")
+            else if (userRole === 'ROLE_RECRUITER' && userType.name.toString() === 'Both') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/" + INTERVIEW_ID + '/edit')
+            else if (userRole === 'ROLE_CANDIDATE') {
+                if (userType.name === 'Candidate') {
+                    const promiseResults = await Promise.all(
+                        [
+                            createNewInterviewFromCandidate()
+                        ]
+                    )
+                    const response = {response: promiseResults[0]}
+                    console.log(response)
+                }
+                window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/")
+            }
             window.close()
         });
 
@@ -35,15 +54,24 @@ $(document).ready(async () => {
         });
     });
 
-    webComponent.addEventListener('onJoinButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarLeaveButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarCameraButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarMicrophoneButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarScreenshareButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarParticipantsPanelButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarChatPanelButtonClicked', (event) => { });
-    webComponent.addEventListener('onToolbarFullscreenButtonClicked', (event) => { });
-    webComponent.addEventListener('onParticipantCreated', (event) => { });
+    webComponent.addEventListener('onJoinButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarLeaveButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarCameraButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarMicrophoneButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarScreenshareButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarParticipantsPanelButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarChatPanelButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onToolbarFullscreenButtonClicked', (event) => {
+    });
+    webComponent.addEventListener('onParticipantCreated', (event) => {
+    });
 
 });
 
@@ -145,4 +173,36 @@ function createToken(sessionId, tokenServerApp, APPLICATION_SERVER_URL) {
             error: (error) => reject(error)
         });
     });
+}
+
+function finishSession() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: 'POST',
+            url: APPLICATION_SERVER_URL + '/api/sessions/' + sessionId + '/finish',
+            data: JSON.stringify({}),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ` + tokenServerApp
+            },
+            success: (response) => resolve(response), // The token
+            error: (error) => reject(error)
+        })
+    })
+}
+
+function createNewInterviewFromCandidate() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: 'POST',
+            url: APPLICATION_SERVER_URL + '/api/sessions/' + sessionId + '/newInterview',
+            data: JSON.stringify({}),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ` + tokenServerApp
+            },
+            success: (response) => resolve(response), // The token
+            error: (error) => reject(error)
+        })
+    })
 }
