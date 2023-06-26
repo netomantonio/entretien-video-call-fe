@@ -33,7 +33,7 @@ $(document).ready(async () => {
             window.localStorage.clear()
             window.localStorage.setItem("sessionId", sessionId)
             if (userRole === 'ROLE_RECRUITER' && userType.name.toString() === 'Recruiter') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/")
-            else if (userRole === 'ROLE_RECRUITER' && userType.name.toString() === 'Both') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/" + INTERVIEW_ID + '/edit')
+            else if (userRole === 'ROLE_RECRUITER' && userType.name.toString() === 'Both') window.location.replace(APPLICATION_FRONTEND_URL + "/interviews/" + INTERVIEW_ID)
             else if (userRole === 'ROLE_CANDIDATE') {
                 if (userType.name === 'Candidate') {
                     const promiseResults = await Promise.all(
