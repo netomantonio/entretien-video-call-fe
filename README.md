@@ -12,7 +12,7 @@
 > Esta aplicação é parte da plataforma de gerenciamento de entrevistas por competência entretien-rh e sua responsabilidade é executar a video chamada para as entrevistas agendadas.
 
 ## NodeJS Version
-> +17.9.1
+> 17.9.1
 
 ## Install
 
@@ -23,7 +23,7 @@ npm install
 ## Usage
 use o comando abaixo para iniciar a aplicação
 ```sh 
- http-server
+ npm run start
 ```
 
 ## Author
@@ -41,3 +41,7 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2023 [ENTRETIEN-RH](https://github.com/netomantonio).<br />
 This project is [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html) licensed.
+
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
