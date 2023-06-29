@@ -12,7 +12,7 @@
 > Esta aplicação é parte da plataforma de gerenciamento de entrevistas por competência entretien-rh e sua responsabilidade é executar a video chamada para as entrevistas agendadas.
 
 ## NodeJS Version
-> +17.9.1
+> 17.9.1
 
 ## Install
 
@@ -23,7 +23,7 @@ npm install
 ## Usage
 use o comando abaixo para iniciar a aplicação
 ```sh 
- http-server
+ npm run start
 ```
 
 ## Author
