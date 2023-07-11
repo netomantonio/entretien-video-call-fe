@@ -11,10 +11,15 @@
 
 > Esta aplicação é parte da plataforma de gerenciamento de entrevistas por competência entretien-rh e sua responsabilidade é executar a video chamada para as entrevistas agendadas.
 
-## NodeJS Version
-> 17.9.1
+### Pré-Requisitos
+> NVM - Node Version Manager (Version): **0.39.0**
+
+> Nodejs (Version): **17.9.1**
 
 ## Install
+Para o bom funcionamento do sistema como um todo, é necessário o gerenciamento
+de multiplas versões no node, sendo recomendado o uso do NVM (Node Version Manager)
+para mais detalhes [clique aqui](https://github.com/nvm-sh/nvm)
 
 ```sh
 npm install
@@ -28,10 +33,11 @@ use o comando abaixo para iniciar a aplicação
 
 ## Author
 
-👤 **ENTRETIEN-RH**
+👤 **Entretien**
 
-* Website: https://entretienrh.com.br
-* Github: [@netomantonio](https://github.com/netomantonio)
+* Website: www.entretien.com.br
+* Github: [@netomantonio](https://github.com/netomantonio) \ [@leonardowrobel](https://github.com/leonardowrobel)
+* LinkedIn: [@amneto](https://linkedin.com/in/amneto) \ [@leonardowrobel](https://linkedin.com/in/leonardo-wrobel-b26b07189)
 
 ## Show your support
 
