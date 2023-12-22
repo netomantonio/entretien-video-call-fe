@@ -13,8 +13,11 @@
 
 ### Pré-Requisitos
 > NVM - Node Version Manager (Version): **0.39.0**
+
 > BACKEND - [Entretien-BE](https://github.com/netomantonio/entretien-rh-be)
+
 > FRONTEND - [Entretien-FE](https://github.com/netomantonio/entretien-fe)
+
 > Nodejs (Version): **17.9.1**
 
 ## Install
